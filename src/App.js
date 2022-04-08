@@ -1,5 +1,6 @@
 import {createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword, updateProfile} from "firebase/auth";
 import { useState } from "react";
+import LoginApp from "./components/LoginApp/LoginApp";
 import app from "./firebase.init";
 
 const auth = getAuth(app);
@@ -139,6 +140,9 @@ function App() {
             {
               !registered ? <p>Already have an account? <button onClick={handleRegistered} className="text-indigo-600 font-semibold">Login</button></p> : <p>Don't have an account? <button onClick={handleRegistered} className="text-indigo-600 font-semibold">Signup</button></p>
             }
+          </div>
+          <div>
+            <LoginApp></LoginApp>
           </div>
         </div>
       </div>
