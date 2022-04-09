@@ -2,6 +2,7 @@ import {createUserWithEmailAndPassword, getAuth, sendEmailVerification, sendPass
 import React, { useState } from 'react';
 import LoginApp from '../LoginApp/LoginApp';
 import app from "../../firebase.init";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const auth = getAuth(app);
 
@@ -13,6 +14,11 @@ const LoginForm = () => {
     const [emailErrorMsg, setEmailErrorMsg] = useState('');
     const [passErrorMsg, setPassErrorMsg] = useState('');
     const [registered, setRegistered] = useState(true);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    let from = location?.state?.from?.pathname || "/user-profile";
 
     const handleEmail = (event)=>{
         setEmail(event.target.value);
@@ -47,6 +53,7 @@ const LoginForm = () => {
             updateName();
             emailVerification();
             console.log(user);
+            setRegistered(true);
             })
             .catch( (error) =>{
             console.error(error);
@@ -57,6 +64,7 @@ const LoginForm = () => {
             signInWithEmailAndPassword(auth, email, password)
             .then(res=>{
             const user = res.user;
+            navigate(from, { replace: true });
             console.log(user);
             })
             .catch( (error) =>{

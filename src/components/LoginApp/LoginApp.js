@@ -15,15 +15,16 @@ const LoginApp = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    let from = location?.state?.from?.pathname || "/";
-    
+    let from = location?.state?.from?.pathname || "/user-profile";
+    console.log(from);
+
     const handleGoogle = ()=>{
         signInWithGoogle()
         .then(()=>{
             navigate(from, { replace: true });
         })
     }
-
+    console.log(user);
     if(error){
         console.error(error.message);
     }
